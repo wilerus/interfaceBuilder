@@ -4,6 +4,27 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require('path');
+
+const jsFileName = 'iBuild.js';
+const jsFileNameMin = 'iBuild.min.js';
+const cssFileName = 'iBuild.css';
+const cssFileNameMin = 'iBuild.min.css';
+
+const pathResolver = {
+    source() {
+        return path.resolve.apply(path.resolve, [__dirname, 'src'].concat(Array.from(arguments)));
+    },
+    node_modules() {
+        return path.resolve.apply(path.resolve, [__dirname, 'node_modules']);
+    },
+    tests() {
+        return path.resolve.apply(path.resolve, [__dirname, 'tests']);
+    },
+    compiled() {
+        return path.resolve.apply(path.resolve, [__dirname, 'dist']);
+    }
+};
 
 module.exports = (options = { env: 'production' }) => {
     const PRODUCTION = options.env === 'production';
@@ -156,7 +177,7 @@ module.exports = (options = { env: 'production' }) => {
     };
 
     if (!TEST) {
-        webpackConfig.entry = ['babel-polyfill', pathResolver.source('coreApi.js')];
+        webpackConfig.entry = ['babel-polyfill', pathResolver.source('index.js')];
         webpackConfig.output = {
             path: pathResolver.compiled(),
             filename: jsFileName,
@@ -166,7 +187,7 @@ module.exports = (options = { env: 'production' }) => {
         if (options.clean !== false) {
             webpackConfig.plugins.push(
                 new CleanWebpackPlugin([ pathResolver.compiled() ], {
-                    root: pathResolver.root(),
+                    root: pathResolver.compiled(),
                     verbose: false,
                     exclude: ['localization']
                 })

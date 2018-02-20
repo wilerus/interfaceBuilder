@@ -1,33 +1,20 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
+import RouterConfiguration from './RouterConfiguration';
+import ApplicationStore from './ApplicationStore';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
-const Foo = {
-    template: '<div>foo</div>',
-    created() {
-        console.log(123);
-    }
-};
-const Bar = {
-    template: '<div>bar</div>',
-    created() {
-        console.log(456);
-    }
-};
-
-const routes = [
-    { path: '/foo', component: Foo },
-    { path: '/bar', component: Bar }
-];
-
 const router = new VueRouter({
-    routes
+    routes: RouterConfiguration
 });
+
+const store = new Vuex.Store(ApplicationStore);
 
 new Vue({
     router,
+    store,
     el: '#app'
 });

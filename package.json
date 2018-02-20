@@ -1,7 +1,7 @@
 {
   "name": "interfacebuilder",
   "version": "0.0.1",
-  "description": "buildding interface",
+  "description": "building interface",
   "main": "index.js",
   "scripts": {
     "test": "test",
@@ -39,6 +39,7 @@
     "eslint-loader": "^1.9.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^2.30.1",
     "postcss-loader": "^2.1.0",
     "webpack-dev-server": "^2.11.1"
   }

@@ -5,6 +5,7 @@ const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const jsFileName = 'iBuild.js';
 const jsFileNameMin = 'iBuild.min.js';
@@ -156,23 +157,39 @@ module.exports = (options = { env: 'production' }) => {
         plugins: [
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': PRODUCTION ? '"production"' : '"development"',
-                __DEV__: !PRODUCTION
+                __DEV__: !PRODUCTION,
+                'process.env': {
+                    NODE_ENV: JSON.stringify('production')
+                }
             }),
             new ExtractTextPlugin({
                 filename: UGLIFY ? cssFileNameMin : cssFileName
             }),
-            new webpack.optimize.ModuleConcatenationPlugin()
+            new webpack.optimize.ModuleConcatenationPlugin(),
+            new HtmlWebpackPlugin({
+                template: pathResolver.source('index.html'),
+                hash: PRODUCTION,
+                filename: 'index.html',
+                inject: 'body',
+                minify: {
+                    collapseWhitespace: false
+                }
+            }),
         ],
         resolve: {
             modules: [
                 pathResolver.source(),
                 pathResolver.node_modules()
-            ]
+            ],
+            alias: {
+                vue$: 'vue/dist/vue.esm.js'
+            }
         },
         devServer: {
             noInfo: true,
             stats: 'minimal',
-            port: 3000
+            port: 3210,
+            watchContentBase: true
         }
     };
 
@@ -181,7 +198,7 @@ module.exports = (options = { env: 'production' }) => {
         webpackConfig.output = {
             path: pathResolver.compiled(),
             filename: jsFileName,
-            library: 'core',
+            library: 'iBuild',
             libraryTarget: 'umd'
         };
         if (options.clean !== false) {

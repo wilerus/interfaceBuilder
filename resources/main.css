@@ -1,0 +1,35 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: white;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.application_container {
+    height: 100%;
+    width: 100%;
+}
+
+.interface-builder_container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+
+.navigation_container {
+    height: 100%;
+}
+
+.properties_container {
+    height: 100%;
+}
+
+.canvas_container {
+    height: 100%;
+}

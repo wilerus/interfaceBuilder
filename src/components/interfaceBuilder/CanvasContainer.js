@@ -1,5 +1,5 @@
 import Vue from 'vue';
 
-export default Vue.component('canvas-container', {
+export default Vue.extend({
     template: '<div class="canvas_container">2</div>'
 });

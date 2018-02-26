@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
@@ -5,6 +6,7 @@ import RouterConfiguration from './RouterConfiguration';
 import ApplicationStore from './ApplicationStore';
 import '../resources/main.css';
 import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -19,5 +21,11 @@ const store = new Vuex.Store(ApplicationStore);
 new Vue({
     router,
     store,
-    el: '#app'
+    el: '#app',
+    template: `
+    <v-navigation-drawer></v-navigation-drawer>
+	<p>
+		<router-link to="/interfaceBuilder">Go to Interface Builder</router-link>
+	</p>
+	<router-view></router-view>`
 });

@@ -37,6 +37,7 @@ module.exports = (options = { env: 'production' }) => {
     const GRAPHICS_LIMIT = PRODUCTION ? 10000 : 1000000;
 
     const webpackConfig = {
+        mode: PRODUCTION ? "production" : 'development',
         cache: true,
         devtool: TEST ? 'inline-source-map' : 'source-map',
         module: {
@@ -155,17 +156,9 @@ module.exports = (options = { env: 'production' }) => {
             }]
         },
         plugins: [
-            new webpack.DefinePlugin({
-                'process.env.NODE_ENV': PRODUCTION ? '"production"' : '"development"',
-                __DEV__: !PRODUCTION,
-                'process.env': {
-                    NODE_ENV: JSON.stringify('production')
-                }
-            }),
             new ExtractTextPlugin({
                 filename: UGLIFY ? cssFileNameMin : cssFileName
             }),
-            new webpack.optimize.ModuleConcatenationPlugin(),
             new HtmlWebpackPlugin({
                 template: pathResolver.source('index.html'),
                 hash: PRODUCTION,
@@ -233,27 +226,6 @@ module.exports = (options = { env: 'production' }) => {
         webpackConfig.plugins.push(
             new webpack.optimize.OccurrenceOrderPlugin()
         );
-
-        if (UGLIFY) {
-            webpackConfig.plugins.push(
-                new webpack.optimize.UglifyJsPlugin({
-                    uglifyOptions: {
-                        compress: {
-                            warnings: true,
-                            dead_code: true,
-                            properties: true,
-                            conditionals: true,
-                            evaluate: true,
-                            comparisons: true
-                        }
-                    },
-                    sourceMap: true,
-                    parallel: true,
-                    output: {
-                        comments: false
-                    }
-                }));
-        }
     }
 
     return webpackConfig;

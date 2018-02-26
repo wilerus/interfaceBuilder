@@ -1,5 +1,5 @@
 import Vue from 'vue';
 
-export default Vue.component('properties-container', {
+export default Vue.extend({
     template: '<div class="properties_container">3</div>'
 });

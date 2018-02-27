@@ -37,7 +37,7 @@ module.exports = (options = { env: 'production' }) => {
     const GRAPHICS_LIMIT = PRODUCTION ? 10000 : 1000000;
 
     const webpackConfig = {
-        mode: PRODUCTION ? "production" : 'development',
+        mode: PRODUCTION ? 'production' : 'development',
         cache: true,
         devtool: TEST ? 'inline-source-map' : 'source-map',
         module: {
@@ -173,10 +173,7 @@ module.exports = (options = { env: 'production' }) => {
             modules: [
                 pathResolver.source(),
                 pathResolver.node_modules()
-            ],
-            alias: {
-                vue$: 'vue/dist/vue.esm.js'
-            }
+            ]
         },
         devServer: {
             noInfo: true,

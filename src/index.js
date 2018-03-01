@@ -7,6 +7,7 @@ import ApplicationStore from './ApplicationStore';
 import '../resources/main.css';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
+import template from './index.vue';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -22,10 +23,5 @@ new Vue({
     router,
     store,
     el: '#app',
-    template: `
-    <v-navigation-drawer></v-navigation-drawer>
-	<p>
-		<router-link to="/interfaceBuilder">Go to Interface Builder</router-link>
-	</p>
-	<router-view></router-view>`
+    render: h => h(template)
 });

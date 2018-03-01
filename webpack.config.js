@@ -37,9 +37,16 @@ module.exports = (options = { env: 'production' }) => {
     const GRAPHICS_LIMIT = PRODUCTION ? 10000 : 1000000;
 
     const webpackConfig = {
-        mode: PRODUCTION ? 'production' : 'development',
+        mode: 'development',
         cache: true,
         devtool: TEST ? 'inline-source-map' : 'source-map',
+        entry: ['babel-polyfill', pathResolver.source('index.js')],
+        output: {
+            path: pathResolver.compiled(),
+            filename: jsFileName,
+            library: 'iBuild',
+            libraryTarget: 'umd'
+        },
         module: {
             rules: [{
                 test: /\.js$/,
@@ -171,6 +178,11 @@ module.exports = (options = { env: 'production' }) => {
                     collapseWhitespace: false
                 }
             }),
+            new CleanWebpackPlugin([ pathResolver.compiled() ], {
+                root: pathResolver.compiled(),
+                verbose: false,
+                exclude: ['localization']
+            })
         ],
         resolve: {
             modules: [
@@ -186,24 +198,6 @@ module.exports = (options = { env: 'production' }) => {
         }
     };
 
-    if (!TEST) {
-        webpackConfig.entry = ['babel-polyfill', pathResolver.source('index.js')];
-        webpackConfig.output = {
-            path: pathResolver.compiled(),
-            filename: jsFileName,
-            library: 'iBuild',
-            libraryTarget: 'umd'
-        };
-        if (options.clean !== false) {
-            webpackConfig.plugins.push(
-                new CleanWebpackPlugin([ pathResolver.compiled() ], {
-                    root: pathResolver.compiled(),
-                    verbose: false,
-                    exclude: ['localization']
-                })
-            );
-        }
-    }
     if (TEST_COVERAGE) {
         webpackConfig.module.rules.push({
             test: /\.js$|\.jsx$/,

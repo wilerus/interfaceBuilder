@@ -4,7 +4,7 @@ import PropertiesContainer from './PropertiesView';
 import template from './templates/interfaceBuilder.vue';
 
 export default Vue.extend({
-    template,
+    render: h => h(template),
 
     components: {
         'navigation-container': NavigationContainer,

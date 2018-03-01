@@ -153,6 +153,9 @@ module.exports = (options = { env: 'production' }) => {
                 options: {
                     limit: GRAPHICS_LIMIT,
                 }
+            }, {
+                test: /\.vue$/,
+                loader: 'vue-loader'
             }]
         },
         plugins: [

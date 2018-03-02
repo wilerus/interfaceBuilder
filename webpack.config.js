@@ -188,7 +188,10 @@ module.exports = (options = { env: 'production' }) => {
             modules: [
                 pathResolver.source(),
                 pathResolver.node_modules()
-            ]
+            ],
+            alias: {
+                vue$: 'vue/dist/vue.esm.js'
+            }
         },
         devServer: {
             noInfo: true,

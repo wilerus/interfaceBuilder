@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
@@ -7,7 +6,7 @@ import ApplicationStore from './ApplicationStore';
 import '../resources/main.css';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
-import template from './index.vue';
+import template from './indexTemplate.html';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -23,5 +22,10 @@ new Vue({
     router,
     store,
     el: '#app',
-    render: h => h(template)
+    template,
+    computed: {
+        items() {
+            return this.$store.state.items;
+        }
+    }
 });

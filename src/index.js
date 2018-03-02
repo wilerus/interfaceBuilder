@@ -27,5 +27,10 @@ new Vue({
         items() {
             return this.$store.state.items;
         }
-    }
+    },
+    data: () => ({
+        dark: true,
+        floating: true,
+        height: '33%'
+    })
 });
